@@ -8,14 +8,20 @@ from ros_nodes import init_ros_node, JoystickPublisher, set_socketio
 from socketio_events import socketio_events, set_joystick_publisher
 from navbar import update_navbar
 
+from terminal_pty import register_terminal_events   # ← EKLE
+
+
 # ZeroMQ abone tarafı
 from camera_zmq import start_camera_streams
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app,  async_mode="threading" ,cors_allowed_origins="*")
+
 
 socketio_events(socketio)
+register_terminal_events(socketio)  # ← EKLE
+
 
 def main():
     # ROS tarafına SocketIO referansı ver

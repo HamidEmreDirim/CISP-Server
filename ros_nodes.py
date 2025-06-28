@@ -78,7 +78,6 @@ class CameraSubscriber(Node):
             data = pickle.dumps(frame)
             # Mesaj boyutu bilgisi ile gönderiyoruz
             self.socket.send(struct.pack("Q", len(data)) + data)
-            print(f"[DEBUG] RGB frame sent: {len(data)} bytes.")
         except Exception as e:
             print(f"[DEBUG] Error in RGB listener_callback: {e}")
 
@@ -115,7 +114,6 @@ class ThermalCameraSubscriber(Node):
                 return
             data = pickle.dumps(frame)
             self.socket.send(struct.pack("Q", len(data)) + data)
-            print(f"[DEBUG] Thermal frame sent: {len(data)} bytes.")
         except Exception as e:
             print(f"[DEBUG] Error in Thermal listener_callback: {e}")
 
